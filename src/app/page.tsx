@@ -1,13 +1,17 @@
 import Hero from "@/components/Hero";
 import SocialProofBar from "@/components/SocialProofBar";
-import IntroSection from "@/components/IntroSection";
-import Carousel from "@/components/Carousel";
-import ForSchools from "@/components/ForSchools";
-import ForInstitutions from "@/components/ForInstitutions";
-import FeaturesGrid from "@/components/FeaturesGrid";
-import PilotResults from "@/components/PilotResults";
-import Foundation from "@/components/Foundation";
+import DashboardPreview from "@/components/DashboardPreview";
+import EverythingYouNeed from "@/components/EverythingYouNeed";
+import AllClasses from "@/components/AllClasses";
+import LessonLibrary from "@/components/LessonLibrary";
+import StudentAnalytics from "@/components/StudentAnalytics";
+import ReportsSection from "@/components/ReportsSection";
+import CurriculumGoals from "@/components/CurriculumGoals";
+import MultiDevice from "@/components/MultiDevice";
+import Integrations from "@/components/Integrations";
 import Testimonials from "@/components/Testimonials";
+import Resources from "@/components/Resources";
+import PilotResults from "@/components/PilotResults";
 import DemoForm from "@/components/DemoForm";
 import { FAQ } from "@/components/FAQ";
 import BottomCTA from "@/components/BottomCTA";
@@ -25,14 +29,18 @@ export default function Home() {
     <>
       <Hero />
       <SocialProofBar />
-      <IntroSection />
-      <Carousel />
-      <ForSchools />
-      <ForInstitutions />
-      <FeaturesGrid />
-      <PilotResults />
-      <Foundation />
+      <DashboardPreview />
+      <EverythingYouNeed />
+      <AllClasses />
+      <LessonLibrary />
+      <StudentAnalytics />
+      <ReportsSection />
+      <CurriculumGoals />
+      <MultiDevice />
+      <Integrations />
       <Testimonials />
+      <Resources />
+      <PilotResults />
       <DemoForm />
       <FAQ items={faqs.map(({ q, a }) => ({ question: q, answer: a }))} />
       <BottomCTA />
