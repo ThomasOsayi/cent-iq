@@ -1,35 +1,35 @@
 import Link from "next/link";
 
-const footerLinks = [
-  { href: "/for-schools", label: "For Schools" },
-  { href: "/for-institutions", label: "For Institutions" },
-  { href: "/foundation", label: "Foundation" },
+const COLUMNS = [
+  { title: "Product", links: ["For Schools", "For Institutions", "Foundation", "Curriculum"] },
+  { title: "Resources", links: ["Help Center", "Student Login", "Blog", "Contact"] },
+  { title: "Legal", links: ["Privacy Policy", "Terms of Service", "Accessibility"] },
 ];
 
 export function Footer() {
   return (
-    <footer className="border-t border-zinc-200 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-950">
-      <div className="mx-auto max-w-6xl px-6 py-12">
-        <div className="flex flex-col items-center justify-between gap-6 sm:flex-row">
-          <Link href="/" className="text-lg font-semibold text-foreground">
-            Cent-IQ
-          </Link>
-          <ul className="flex flex-wrap items-center justify-center gap-6">
-            {footerLinks.map(({ href, label }) => (
-              <li key={href}>
-                <Link
-                  href={href}
-                  className="text-sm text-zinc-600 transition-colors hover:text-foreground dark:text-zinc-400 dark:hover:text-foreground"
-                >
-                  {label}
-                </Link>
-              </li>
-            ))}
-          </ul>
+    <footer className="border-t border-border pt-20 pb-10 px-10">
+      <div className="max-w-[1200px] mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-16">
+          <div>
+            <Link href="/" className="font-serif text-2xl text-green mb-4 block">CentIQ</Link>
+            <p className="text-sm text-text-muted leading-relaxed max-w-[280px]">Financial literacy for the next generation. Empowering students, schools, and communities.</p>
+          </div>
+          {COLUMNS.map((col) => (
+            <div key={col.title}>
+              <h4 className="text-sm font-bold uppercase tracking-[1px] mb-5">{col.title}</h4>
+              <ul className="flex flex-col gap-3">
+                {col.links.map((link) => (
+                  <li key={link}><Link href="#" className="text-sm text-text-muted hover:text-green transition-colors">{link}</Link></li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
-        <p className="mt-8 text-center text-sm text-zinc-500 dark:text-zinc-400">
-          © {new Date().getFullYear()} Cent-IQ. All rights reserved.
-        </p>
+        <div className="border-t border-border pt-6 flex items-center justify-between flex-wrap gap-4">
+          <span className="text-[13px] text-text-muted">&copy; 2026 CentIQ. All rights reserved.</span>
+          <span className="text-[13px] text-text-muted">josh@centiqapp.com</span>
+        </div>
       </div>
     </footer>
   );
