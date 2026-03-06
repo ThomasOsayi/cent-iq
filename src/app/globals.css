@@ -1,0 +1,99 @@
+@import "tailwindcss";
+
+/* ─── CentIQ Design Tokens ─── */
+@theme {
+  /* Brand Colors */
+  --color-green: #0B8A5E;
+  --color-green-dark: #076B48;
+  --color-green-light: #E8F5EF;
+  --color-green-badge: #D4EDDF;
+
+  /* Warm Neutrals (Monarch-inspired) */
+  --color-cream: #FBF7F2;
+  --color-cream-dark: #F5EDE3;
+  --color-warm-white: #FEFCFA;
+
+  /* Text */
+  --color-text-primary: #1A1A1A;
+  --color-text-secondary: #5A5A5A;
+  --color-text-muted: #8A8A8A;
+
+  /* Borders & Accents */
+  --color-border: #E8E4DF;
+  --color-orange-accent: #E07B3C;
+
+  /* Fonts */
+  --font-serif: var(--font-dm-serif), Georgia, serif;
+  --font-sans: var(--font-dm-sans), system-ui, sans-serif;
+
+  /* Border Radius */
+  --radius-pill: 50px;
+  --radius-card: 16px;
+  --radius-input: 10px;
+
+  /* Shadows */
+  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.06);
+  --shadow-card-hover: 0 12px 36px rgba(0, 0, 0, 0.1);
+  --shadow-phone: 0 40px 80px rgba(0, 0, 0, 0.12), 0 8px 20px rgba(0, 0, 0, 0.06);
+  --shadow-btn: 0 4px 16px rgba(11, 138, 94, 0.3);
+
+  /* Animations */
+  --animate-fade-up: fade-up 0.7s ease both;
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+/* ─── Base Styles ─── */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    color: var(--color-text-primary);
+    background: var(--color-warm-white);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+}
+
+/* ─── Utility Components ─── */
+@layer components {
+  .section-padding {
+    padding: 120px 40px;
+  }
+
+  .section-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--color-green);
+    margin-bottom: 16px;
+  }
+}
+
+/* ─── Scrollbar Hide for Carousel ─── */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
