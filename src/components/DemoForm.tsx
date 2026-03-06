@@ -1,69 +1,50 @@
-"use client";
-
-import { useState } from "react";
-
-export function DemoForm() {
-  const [submitted, setSubmitted] = useState(false);
-
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    setSubmitted(true);
-  }
-
-  if (submitted) {
-    return (
-      <div className="rounded-lg border border-zinc-200 bg-zinc-50 p-6 text-center dark:border-zinc-800 dark:bg-zinc-950">
-        <p className="font-medium text-foreground">Thanks for your interest.</p>
-        <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
-          We&apos;ll be in touch soon.
-        </p>
-      </div>
-    );
-  }
-
+export default function DemoForm() {
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <div>
-        <label htmlFor="name" className="block text-sm font-medium text-foreground">
-          Name
-        </label>
-        <input
-          id="name"
-          name="name"
-          type="text"
-          required
-          className="mt-1 block w-full rounded-md border border-zinc-300 bg-background px-3 py-2 text-foreground shadow-sm focus:border-foreground focus:outline-none focus:ring-1 focus:ring-foreground dark:border-zinc-700"
-        />
+    <section id="demo" className="section-padding text-center">
+      <div className="section-inner">
+        <div className="section-label">Get Started</div>
+        <h2 className="font-serif text-[clamp(32px,4vw,48px)] leading-[1.15] tracking-tight mb-5">Book a demo</h2>
+        <p className="text-[17px] leading-relaxed text-text-secondary max-w-[560px] mx-auto">
+          Tell us about your organization and we&apos;ll schedule a personalized demo to show you how CentIQ can help.
+        </p>
+        <div className="max-w-[540px] mx-auto mt-12 bg-white border border-border rounded-[20px] p-11 text-left">
+          {[
+            { label: "Your Name", type: "text", placeholder: "John Smith" },
+            { label: "Email Address", type: "email", placeholder: "john@example.com" },
+            { label: "Organization", type: "text", placeholder: "School or company name" },
+          ].map((field) => (
+            <div key={field.label} className="mb-5">
+              <label className="block text-sm font-semibold mb-2">{field.label} *</label>
+              <input
+                type={field.type}
+                placeholder={field.placeholder}
+                className="w-full px-[18px] py-3.5 border-[1.5px] border-border rounded-input text-[15px] bg-warm-white outline-none focus:border-green focus:shadow-[0_0_0_3px_rgba(11,138,94,0.1)] transition-all"
+              />
+            </div>
+          ))}
+          <div className="mb-5">
+            <label className="block text-sm font-semibold mb-2">Your Role *</label>
+            <select className="w-full px-[18px] py-3.5 border-[1.5px] border-border rounded-input text-[15px] bg-warm-white outline-none focus:border-green focus:shadow-[0_0_0_3px_rgba(11,138,94,0.1)] transition-all">
+              <option value="">Select your role</option>
+              <option>Teacher</option>
+              <option>Administrator</option>
+              <option>Financial Institution</option>
+              <option>Community Organization</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div className="mb-5">
+            <label className="block text-sm font-semibold mb-2">How can we help?</label>
+            <textarea
+              placeholder="Tell us about your goals..."
+              className="w-full px-[18px] py-3.5 border-[1.5px] border-border rounded-input text-[15px] bg-warm-white outline-none focus:border-green focus:shadow-[0_0_0_3px_rgba(11,138,94,0.1)] transition-all resize-y min-h-[100px]"
+            />
+          </div>
+          <button className="w-full bg-green text-white py-4 rounded-pill text-base font-semibold hover:bg-green-dark hover:shadow-btn transition-all duration-300 mt-2 cursor-pointer">
+            ✨ Request a Demo
+          </button>
+        </div>
       </div>
-      <div>
-        <label htmlFor="email" className="block text-sm font-medium text-foreground">
-          Email
-        </label>
-        <input
-          id="email"
-          name="email"
-          type="email"
-          required
-          className="mt-1 block w-full rounded-md border border-zinc-300 bg-background px-3 py-2 text-foreground shadow-sm focus:border-foreground focus:outline-none focus:ring-1 focus:ring-foreground dark:border-zinc-700"
-        />
-      </div>
-      <div>
-        <label htmlFor="org" className="block text-sm font-medium text-foreground">
-          Organization
-        </label>
-        <input
-          id="org"
-          name="organization"
-          type="text"
-          className="mt-1 block w-full rounded-md border border-zinc-300 bg-background px-3 py-2 text-foreground shadow-sm focus:border-foreground focus:outline-none focus:ring-1 focus:ring-foreground dark:border-zinc-700"
-        />
-      </div>
-      <button
-        type="submit"
-        className="w-full rounded-full bg-foreground px-4 py-3 text-sm font-medium text-background transition-colors hover:opacity-90"
-      >
-        Request demo
-      </button>
-    </form>
+    </section>
   );
 }

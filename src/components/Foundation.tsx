@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { CheckCircle } from "lucide-react";
 
-export function Foundation() {
+export default function Foundation() {
   return (
     <section className="section-padding">
       <div className="section-inner">
@@ -9,14 +9,18 @@ export function Foundation() {
           <div className="h-[400px] bg-cream-dark rounded-[24px] flex items-center justify-center relative overflow-hidden">
             <div className="absolute inset-0 bg-linear-to-br from-green to-green-dark opacity-10" />
             <div className="relative z-10 text-center text-green-dark">
-              <svg className="w-[60px] h-[60px] mx-auto mb-3 opacity-40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" /></svg>
+              <svg className="w-[60px] h-[60px] mx-auto mb-3 opacity-40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" />
+              </svg>
               <p className="text-sm font-semibold">CentIQ Foundation</p>
               <p className="text-xs opacity-60 mt-1">[Community photo placeholder]</p>
             </div>
           </div>
           <div>
             <div className="section-label">CentIQ Foundation</div>
-            <h2 className="font-serif text-[clamp(32px,4vw,48px)] leading-[1.15] tracking-tight mb-5">Investing in financial futures</h2>
+            <h2 className="font-serif text-[clamp(32px,4vw,48px)] leading-[1.15] tracking-tight mb-5">
+              Investing in financial futures
+            </h2>
             <p className="text-[17px] leading-relaxed text-text-secondary max-w-[560px] mb-6">
               The CentIQ Foundation partners with schools and organizations serving underserved communities to bring financial literacy where it&apos;s needed most — completely free.
             </p>

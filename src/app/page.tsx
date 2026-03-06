@@ -1,19 +1,19 @@
-import { Hero } from "@/components/Hero";
-import { SocialProofBar } from "@/components/SocialProofBar";
-import { IntroSection } from "@/components/IntroSection";
-import { Carousel } from "@/components/Carousel";
-import { ForSchools } from "@/components/ForSchools";
-import { ForInstitutions } from "@/components/ForInstitutions";
-import { FeaturesGrid } from "@/components/FeaturesGrid";
-import { PilotResults } from "@/components/PilotResults";
-import { Foundation } from "@/components/Foundation";
-import { Testimonials } from "@/components/Testimonials";
-import { DemoFormSection } from "@/components/DemoFormSection";
+import Hero from "@/components/Hero";
+import SocialProofBar from "@/components/SocialProofBar";
+import IntroSection from "@/components/IntroSection";
+import Carousel from "@/components/Carousel";
+import ForSchools from "@/components/ForSchools";
+import ForInstitutions from "@/components/ForInstitutions";
+import FeaturesGrid from "@/components/FeaturesGrid";
+import PilotResults from "@/components/PilotResults";
+import Foundation from "@/components/Foundation";
+import Testimonials from "@/components/Testimonials";
+import DemoForm from "@/components/DemoForm";
 import { FAQ } from "@/components/FAQ";
-import { BottomCTA } from "@/components/BottomCTA";
-import { Footer } from "@/components/Footer";
+import BottomCTA from "@/components/BottomCTA";
+import Footer from "@/components/Footer";
 
-const FAQS = [
+const faqs = [
   { q: "What grade levels does CentIQ support?", a: "CentIQ supports students from grades 6-12 with age-appropriate, standards-aligned financial literacy content. Our curriculum covers everything from basic budgeting fundamentals to more advanced topics like investing and compound growth." },
   { q: "How does CentIQ align with state financial literacy requirements?", a: "Our 400+ lessons are mapped to state and national standards, including JumpStart financial literacy requirements. We regularly update our content to stay aligned with evolving state mandates." },
   { q: "Is CentIQ free for underserved communities?", a: "Yes! Through the CentIQ Foundation, we provide full platform access at no cost to Title I schools, after-school programs serving low-income students, and community organizations in underserved areas." },
@@ -33,8 +33,8 @@ export default function Home() {
       <PilotResults />
       <Foundation />
       <Testimonials />
-      <DemoFormSection />
-      <FAQ items={FAQS.map(({ q, a }) => ({ question: q, answer: a }))} />
+      <DemoForm />
+      <FAQ items={faqs.map(({ q, a }) => ({ question: q, answer: a }))} />
       <BottomCTA />
       <Footer />
     </>

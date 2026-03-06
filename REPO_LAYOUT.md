@@ -19,17 +19,27 @@ cent-iq/
 │   │   ├── foundation/
 │   │   │   └── page.tsx          # CentIQ Foundation landing page
 │   │   ├── favicon.ico
-│   │   ├── globals.css           # Design tokens, base & utility styles
-│   │   ├── layout.tsx            # Root layout (fonts, PromoBanner, Navbar)
-│   │   └── page.tsx              # Home page (full marketing site)
+│   │   ├── globals.css           # Design tokens, base & utility styles, animations
+│   │   ├── layout.tsx            # Root layout (fonts, PromoBanner, FloatingNav)
+│   │   └── page.tsx              # Home — composes all section components
 │   └── components/
-│       ├── BottomCTA.tsx        # Reusable CTA section (title, description, link)
-│       ├── DemoForm.tsx         # Demo request form (name, email, org, submit)
-│       ├── FAQ.tsx              # Accordion FAQ component
-│       ├── Footer.tsx           # Footer with links (exported, minimal usage)
-│       ├── Navbar.tsx           # Sticky nav with dropdown & mobile menu
-│       ├── PhoneMockup.tsx      # Hero phone mockups (main + tilted)
-│       └── PromoBanner.tsx     # Top promo strip
+│       ├── BottomCTA.tsx         # Green CTA section (Book a Demo / Contact Us)
+│       ├── Carousel.tsx          # Horizontal gradient cards (Short-form Videos, etc.)
+│       ├── DemoForm.tsx          # Book-a-demo section with form (id="demo")
+│       ├── FAQ.tsx               # Accordion FAQ (items prop from page)
+│       ├── FeaturesGrid.tsx     # 6 feature cards (Teacher Dashboard, etc.)
+│       ├── FloatingNav.tsx       # Fixed floating nav with scroll position, dropdown, mobile
+│       ├── Footer.tsx            # Site footer (Product, Resources, Legal, copyright)
+│       ├── ForInstitutions.tsx  # Institutions section + Community Impact mockup
+│       ├── ForSchools.tsx       # Schools section + Teacher Dashboard mockup
+│       ├── Foundation.tsx       # CentIQ Foundation section + placeholder image
+│       ├── Hero.tsx              # Full-bleed hero (image, floating cards, CTA)
+│       ├── IntroSection.tsx      # "See how students learn" intro block
+│       ├── PhoneMockup.tsx      # Phone device mockup (not currently used on home)
+│       ├── PilotResults.tsx     # Bishop Mora pilot stats (95%, 89%, 73%, 53%)
+│       ├── PromoBanner.tsx      # Top promo strip (400+ lessons)
+│       ├── SocialProofBar.tsx   # Star rating + press names (Forbes, EdSurge, etc.)
+│       └── Testimonials.tsx    # Three quote cards (Maria S., Mr. Rodriguez, James T.)
 ├── eslint.config.mjs
 ├── next-env.d.ts
 ├── next.config.ts
@@ -37,6 +47,7 @@ cent-iq/
 ├── package.json
 ├── postcss.config.mjs
 ├── README.md
+├── REPO_LAYOUT.md
 └── tsconfig.json
 ```
 
@@ -46,15 +57,15 @@ cent-iq/
 
 ## Tech stack
 
-| Layer        | Choice                          |
-|-------------|----------------------------------|
-| Framework   | Next.js 16 (App Router)          |
-| React       | 19.x                             |
-| Styling     | Tailwind CSS v4 + PostCSS       |
-| Fonts       | DM Serif Display, DM Sans (Google Fonts) |
-| Icons       | lucide-react                     |
-| Utils       | clsx                             |
-| Language    | TypeScript 5                     |
+| Layer      | Choice                          |
+|-----------|----------------------------------|
+| Framework | Next.js 16 (App Router)          |
+| React     | 19.x                             |
+| Styling   | Tailwind CSS v4 + PostCSS       |
+| Fonts     | DM Serif Display, DM Sans (Google Fonts) |
+| Icons     | lucide-react                     |
+| Utils     | clsx                             |
+| Language  | TypeScript 5                     |
 
 ---
 
@@ -64,55 +75,73 @@ cent-iq/
 
 - **Metadata**: Title and description for CentIQ (financial literacy).
 - **Fonts**: `DM_Serif_Display` and `DM_Sans` with CSS variables (`--font-dm-serif`, `--font-dm-sans`).
-- **Global chrome**: Renders `PromoBanner` at top, then `Navbar`, then `<main>{children}</main>`.
+- **Chrome**: Renders `PromoBanner` at top, then `FloatingNav`, then `<main>{children}</main>`.
 
 ### Global styles (`src/app/globals.css`)
 
-- **Design tokens** (Tailwind `@theme`): brand green, cream/warm neutrals, text colors, borders, orange accent, serif/sans fonts, radius (pill, card, input), shadows (card, card-hover, phone, btn), `fade-up` animation.
+- **Design tokens** (`@theme`): brand green, cream/warm neutrals, text colors, borders, orange accent, serif/sans fonts, radius (pill, card, input), shadows (card, card-hover, phone, btn, **nav**, **float**), keyframes: **fade-up**, **card-up**, **float-in**, **bob**, **fill-bar**, **swoosh-in**.
 - **Base**: smooth scroll, body font/color/background, overflow-x hidden.
-- **Utilities**: `.section-padding`, `.section-inner`, `.section-label`.
-- **Scrollbar**: `.scrollbar-hide` for carousels.
+- **Utilities**: `.section-padding`, `.section-inner`, `.section-label`, `.scrollbar-hide`.
+- **Hero helpers**: `.float-bob-1/2/3` (float-in + bob), `.progress-fill` (fill-bar), `.hero-swoosh` (swoosh-in).
 
 ### Home page (`src/app/page.tsx`)
 
-Single long-form marketing page with these sections (in order):
+Composes the full marketing flow from section components. Defines `faqs` and passes them into `FAQ`. Section order:
 
-1. **Hero** — Badge (“400+ Standards-Aligned Lessons”), headline, subcopy, “Book a Demo” / “Watch Video”, star rating line, `PhoneMockup` (main + tilted).
-2. **Press bar** — Logos/names: Forbes, EdSurge, TechCrunch, Education Week, Fast Company (visual only).
-3. **Intro** — “Your home base for financial literacy”, “See how students learn”, short value prop.
-4. **Carousel** — Horizontal scroll of 5 gradient cards: Short-form Videos, Interactive Lessons, Ask Questions, Test Your Knowledge, Financial Fitness (snap scroll, hover lift).
-5. **For Schools** — Two-column: Teacher Dashboard mockup (student list with scores) + copy (400+ lessons, checklist, “Learn More” → `/for-schools`).
-6. **For Institutions** — Two-column: copy (CRA, rewards, branded experiences) + Community Impact mockup (2,400+ students, 95%, 48 partners, CRA); “Explore Partnerships” → `/for-institutions`.
-7. **Features grid** — 6 cards: Teacher Dashboard, Class Rankings, Curriculum Aligned, Group Activities, Easy Integration, Short-Form Videos (icons + short descriptions).
-8. **Pilot results** — Green full-bleed section with Bishop Mora Salesian stats: 95% easy to understand, 89% helped with class, 73% fun/engaging, 53% used outside class.
-9. **Foundation** — Two-column: placeholder “community photo” + copy (CentIQ Foundation, free for underserved); “Learn About Our Foundation” → `/foundation`.
-10. **Testimonials** — 4.9 badge, 3 quote cards (Maria S., Mr. Rodriguez, James T.).
-11. **Demo form** — Inline form (name, email, organization, role select, “How can we help?” textarea, “Request a Demo” button); `id="demo"` for anchor links.
-12. **FAQ** — Rendered via `<FAQ items={...} />` (4 questions: grade levels, state alignment, free for underserved, onboarding).
-13. **Bottom CTA** — Green section: “Ready to bring financial literacy…”, “Book a Demo” / “Contact Us”.
-14. **Footer** — CentIQ branding, Product/Resources/Legal columns (links are placeholders), copyright, josh@centiqapp.com.
+1. **Hero** — `Hero`
+2. **Social proof** — `SocialProofBar`
+3. **Intro** — `IntroSection`
+4. **Carousel** — `Carousel`
+5. **For Schools** — `ForSchools`
+6. **For Institutions** — `ForInstitutions`
+7. **Features** — `FeaturesGrid`
+8. **Pilot results** — `PilotResults`
+9. **Foundation** — `Foundation`
+10. **Testimonials** — `Testimonials`
+11. **Demo form** — `DemoForm`
+12. **FAQ** — `FAQ` (items from page)
+13. **Bottom CTA** — `BottomCTA`
+14. **Footer** — `Footer`
 
-Data (features, stats, testimonials, FAQs) is defined in `page.tsx` and passed into sections/components as needed.
-
-### Components
+### Layout / global components
 
 | Component       | Role |
 |----------------|------|
-| **PromoBanner** | Top strip: “Now available: 400+ standards-aligned…”, “Learn more” link. |
-| **Navbar**      | Sticky; logo → CentIQ; desktop: Product dropdown (For Schools, For Institutions, Foundation), direct links, Student Login, Book a Demo; mobile: hamburger, same links + CTAs. Client component (`"use client"`). |
-| **PhoneMockup** | Main phone: “My Classes”, current lesson (Saving & Budgeting, progress bar), Quick Actions chips, streak card. Second phone (md+): Class Rankings, Achievements, Progress Report, Ask Questions. |
-| **FAQ**         | Accordion; accepts `items` (question/answer). Used on home with 4 CentIQ-specific FAQs. Client component. |
-| **Footer**      | Simple footer (Cent-IQ, For Schools/Institutions/Foundation, copyright). Exported but home page uses its own inline footer. |
-| **DemoForm**    | Form with name, email, organization, submit; shows thank-you state. Styled for generic zinc/foreground. Not used on home (home uses inline form). |
-| **BottomCTA**   | Configurable title, description, CTA text/href. Used on sub-pages. |
+| **PromoBanner** | Top strip: “Now available: 400+ standards-aligned financial literacy lessons”, “Learn more” link. |
+| **FloatingNav** | Fixed nav; position animates by scroll (below promo when scrolled). CentIQ logo; desktop: Product dropdown (For Schools, For Institutions, Foundation), direct links, Student Login, Book a Demo; mobile: hamburger + same links/CTAs. Rounded card style with `shadow-nav`. Client component. |
+
+### Section components (home page)
+
+| Component          | Role |
+|--------------------|------|
+| **Hero**           | Full-bleed hero with Unsplash image, gradient overlay, green swoosh (animated). Floating cards (Current Lesson + progress bar, 95% Class Average, 7 Day Streak) with float-in + bob. Bottom content card: headline, subcopy, “Start learning today” CTA. |
+| **SocialProofBar** | Border-bottom bar: 5-star rating + “95% of students found it easy to understand”; divider; press names (Forbes, EdSurge, TechCrunch, Education Week). |
+| **IntroSection**    | Centered block: section label, “See how students learn”, short value prop. |
+| **Carousel**       | Horizontal scroll of 5 gradient cards (Short-form Videos, Interactive Lessons, Ask Questions, Test Your Knowledge, Financial Fitness); snap scroll, hover lift. |
+| **ForSchools**     | Two-column: Teacher Dashboard mockup (student list with scores) + “For Schools” copy, checklist, “Learn More” → `/for-schools`. |
+| **ForInstitutions**| Two-column: copy (CRA, rewards, branded experiences) + Community Impact mockup (2,400+ students, 95%, 48 partners, CRA); “Explore Partnerships” → `/for-institutions`. |
+| **FeaturesGrid**   | 6 cards: Teacher Dashboard, Class Rankings, Curriculum Aligned, Group Activities, Easy Integration, Short-Form Videos (icons + descriptions). |
+| **PilotResults**   | Green full-bleed section: “Pilot Results”, Bishop Mora Salesian, 4 stats (95%, 89%, 73%, 53%). |
+| **Foundation**      | Two-column: placeholder “community photo” + CentIQ Foundation copy, checklist, “Learn About Our Foundation” → `/foundation`. |
+| **Testimonials**   | 4.9 badge, 3 quote cards (Maria S., Mr. Rodriguez, James T.). |
+| **DemoForm**       | Section with `id="demo"`: “Book a demo”, copy, form (name, email, organization, role select, “How can we help?” textarea, “Request a Demo” button). CentIQ-styled inputs. |
+| **FAQ**            | Accordion; accepts `items` (question/answer). Home passes 4 CentIQ FAQs. Client component. |
+| **BottomCTA**      | Green section: “Ready to bring financial literacy to your community?”, “Book a Demo” (#demo), “Contact Us”. |
+| **Footer**         | CentIQ branding, Product / Resources / Legal columns (placeholder links), copyright, josh@centiqapp.com. |
+
+### Other components
+
+| Component      | Role |
+|----------------|------|
+| **PhoneMockup**| Phone device UI (My Classes, current lesson, quick actions, streak). Present in repo but not imported on home (Hero uses its own floating cards). |
 
 ### Sub-pages (routes)
 
-- **`/for-schools`** — Title/description “For Schools | Cent-IQ”. Heading “For Schools”, short tagline, `<BottomCTA />`.
+- **`/for-schools`** — Metadata “For Schools | Cent-IQ”. Heading “For Schools”, short tagline, `<BottomCTA />`. *(Uses named import `{ BottomCTA }`; component is default export.)*
 - **`/for-institutions`** — “For Institutions | Cent-IQ”. Heading “For Institutions”, tagline, `<BottomCTA />`.
 - **`/foundation`** — “Foundation | Cent-IQ”. Heading “Foundation”, tagline, `<BottomCTA />`.
 
-These three are minimal placeholders; main content lives on the home page sections and links.
+These are minimal placeholders; primary content is in the home page sections.
 
 ### Public assets
 
@@ -120,12 +149,12 @@ These three are minimal placeholders; main content lives on the home page sectio
 
 ### Config
 
-- **next.config.ts** — Default Next config (no custom options).
+- **next.config.ts** — Default Next config.
 - **tsconfig.json** — Path alias `@/*` → `./src/*`, strict TypeScript, Next plugin.
-- **postcss.config.mjs** — Tailwind/PostCSS setup for Tailwind v4.
+- **postcss.config.mjs** — Tailwind/PostCSS for Tailwind v4.
 
 ---
 
 ## Summary
 
-CentIQ is a **Next.js 16 marketing site** for a financial literacy product (schools, institutions, foundation). The **home page** is a full one-pager with hero, social proof, product sections, pilot stats, testimonials, demo form, FAQ, and footer. **Navbar** (with Product dropdown and mobile menu) and **PromoBanner** are global. **Design system** is in `globals.css` (green/cream/orange, DM fonts, shadows, section utilities). **Three sub-routes** (`/for-schools`, `/for-institutions`, `/foundation`) exist as thin landing pages with a shared **BottomCTA**. Reusable pieces include **FAQ**, **PhoneMockup**, **DemoForm**, and **Footer**; the home page uses an inline demo form and its own footer for the full CentIQ layout.
+CentIQ is a **Next.js 16 marketing site** for a financial literacy product (schools, institutions, foundation). The **home page** is built from **section components**: Hero (full-bleed image + floating cards), SocialProofBar, IntroSection, Carousel, ForSchools, ForInstitutions, FeaturesGrid, PilotResults, Foundation, Testimonials, DemoForm, FAQ, BottomCTA, and Footer. **FloatingNav** is a scroll-aware fixed nav (rounded card, below PromoBanner when scrolled). **PromoBanner** sits at the very top. The **design system** lives in `globals.css` (green/cream/orange, DM fonts, shadows, section utilities, hero animations). **Three routes** (`/for-schools`, `/for-institutions`, `/foundation`) are thin landing pages that use **BottomCTA**. **PhoneMockup** exists in `components` but is not used on the home page.
