@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { ChevronDown, Menu, X } from "lucide-react";
 
@@ -23,29 +23,16 @@ const navLinks = [
 export default function FloatingNav() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 44);
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   return (
-    <div
-      className="fixed left-0 right-0 z-50 px-4 lg:px-6 transition-all duration-300 pointer-events-none"
-      style={{ top: scrolled ? "12px" : "52px" }}
-    >
-      <nav className="max-w-[1200px] mx-auto bg-white/95 backdrop-blur-xl rounded-card shadow-nav px-5 lg:px-8 pointer-events-auto">
-        <div className="flex items-center justify-between h-[64px]">
-          {/* Logo */}
+    <div className="sticky top-[42px] z-[150] px-4 lg:px-6 pt-2 pointer-events-none">
+      <nav className="max-w-[1200px] mx-auto bg-white/96 backdrop-blur-xl saturate-[1.4] rounded-card shadow-nav px-5 lg:px-8 pointer-events-auto">
+        <div className="flex items-center justify-between h-[62px]">
           <Link href="/" className="font-serif text-[24px] text-green tracking-tight">
             CentIQ
           </Link>
 
-          {/* Desktop Nav */}
-          <ul className="hidden lg:flex items-center gap-8">
+          <ul className="hidden lg:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
             {navLinks.map((link) => (
               <li key={link.label} className="relative">
                 {link.hasDropdown ? (
@@ -69,7 +56,6 @@ export default function FloatingNav() {
                   </Link>
                 )}
 
-                {/* Dropdown */}
                 {link.hasDropdown && dropdownOpen && (
                   <div className="absolute top-full left-1/2 -translate-x-1/2 mt-4 w-[300px] bg-white rounded-card border border-border shadow-card-hover p-2.5 animate-fade-up">
                     {link.children?.map((child) => (
@@ -92,7 +78,6 @@ export default function FloatingNav() {
             ))}
           </ul>
 
-          {/* Right Side */}
           <div className="flex items-center gap-3">
             <Link
               href="#"
@@ -106,8 +91,6 @@ export default function FloatingNav() {
             >
               Book a Demo
             </Link>
-
-            {/* Mobile Toggle */}
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
               className="lg:hidden p-2 text-text-secondary hover:text-text-primary cursor-pointer"
@@ -117,7 +100,6 @@ export default function FloatingNav() {
           </div>
         </div>
 
-        {/* Mobile Menu */}
         {mobileOpen && (
           <div className="lg:hidden border-t border-border px-2 py-5 animate-fade-up">
             <div className="flex flex-col gap-1">

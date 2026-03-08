@@ -10,7 +10,6 @@ import CurriculumGoals from "@/components/CurriculumGoals";
 import MultiDevice from "@/components/MultiDevice";
 import Integrations from "@/components/Integrations";
 import Testimonials from "@/components/Testimonials";
-import Resources from "@/components/Resources";
 import PilotResults from "@/components/PilotResults";
 import DemoForm from "@/components/DemoForm";
 import { FAQ } from "@/components/FAQ";
@@ -39,7 +38,6 @@ export default function Home() {
       <MultiDevice />
       <Integrations />
       <Testimonials />
-      <Resources />
       <PilotResults />
       <DemoForm />
       <FAQ items={faqs.map(({ q, a }) => ({ question: q, answer: a }))} />
